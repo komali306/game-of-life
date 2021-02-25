@@ -10,6 +10,10 @@ pipeline {
             steps {
                 sh script: 'mvn clean package'
             }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6bd57de242467770713131f12e093f8442294195
         }
         stage('postbuild') {
             steps {
@@ -19,5 +23,8 @@ pipeline {
         }
     }    
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 6bd57de242467770713131f12e093f8442294195
