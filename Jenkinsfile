@@ -1,21 +1,22 @@
 pipeline {
     agent { label 'ltecom'}
     stages {
-        stage('scm')
+        stage('scm') {
             steps {
                 git 'https://github.com/komali306/game-of-life.git'
             }
         }
-        stage('build'){
+        stage('build') {
             steps {
                 sh script: 'mvn clean package'
             }
 
         }
-        stage('postbuild'){
+        stage('postbuild') {
             steps {
                 junit 'gameoflife-web/target/surefire-reports/*.xml'
                 archiveArtifacts 'gameoflife-web/target/*.war'
             }
         }
+    }    
 }
