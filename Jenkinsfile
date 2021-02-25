@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 pipeline {
     agent { label 'ltecom'}
     stages {
@@ -19,4 +20,3 @@ pipeline {
             }
         }
 }
-
