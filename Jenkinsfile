@@ -1,38 +1,13 @@
-pipeline {
-    agent { label 'ltecomm'}
-    triggers {
-        cron('H * * * 1-5')
+node('ltecomm'){
+    stage('scm'){
+        git 'https://github.com/wakaleo/game-of-life.git'
     }
-    parameters {
-        string(name: 'MAVENGOAL', defaultValue: 'clean package', description: 'Enter your maven goal')
+    stage('build'){
+        sh label: '', script: 'mvn clean package'
     }
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-    }
-    stages {
-        stage('scm') {
-            steps {
-                git 'https://github.com/wakaleo/game-of-life.git'        
-            }
-        }
-        stage('build') {
-            steps {
-                sh script: "mvn ${params.MAVENGOAL}"
-            }
-        }
-        stage('post build') {
-            steps {
-                junit 'gameoflife-web/target/surefire-reports/*.xml'
-                archiveArtifacts 'gameoflife-web/target/*.war'
-                stash name: 'warfile', includes: 'gameoflife-web/target/*.war'
-            }
-        }
-        stage ('copy to other node') {
-            agent { label 'ltelog' }
-            steps {
-                unstash name: 'warfile'
-                sh script: 'echo you can deploy your file using ansible/terraform now'
-            }
-        }
+    stage('postbuild'){
+        junit 'gameoflife-web/target/surefire-reports/*.xml'
+        archiveArtifacts 'gameoflife-web/target/*.war'
+        
     }
 }
