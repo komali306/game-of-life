@@ -4,6 +4,7 @@ pipeline {
         upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
         cron('H * * * 1-5')
 
+
     }
     stages {
         stage('scm') {
