@@ -1,7 +1,9 @@
 pipeline {
     agent { label 'ltecom'}
     triggers {
+        upstream(upstreamprojects: 'golnightbuild', threshold: hudson.model.Result.SUCCESS)
         cron('H * * * 1-5')
+
     }
     stages {
         stage('scm') {
@@ -22,8 +24,4 @@ pipeline {
         }
     }    
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 696a2ae902d2dcd4769ba3a2bb80681c6bc8c511
 
