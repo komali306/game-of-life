@@ -1,11 +1,14 @@
 pipeline {
     agent { label 'ltecom'}
     parameters {
-        string(name: 'MAVENGOAL', defaultvalue: 'cleanpackage', description: 'Enter your maven goal')
+        string(name: 'MAVENGOAL', defaultValue: 'cleanpackage', description: 'Enter your maven goal')
     }
     triggers {
         upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
         cron('H * * * 1-5')
+    }
+    options {
+        timeout(time: 30, unit: 'MINUTES')
     }
     stages {
         stage('scm') {
@@ -15,10 +18,10 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh script: "mvn ${params.MAVENGOAL}"
+                sh script: "mvn ${params.MAVENGOAL}" 
             }
         }
-        stage('postbuild') {
+        stage('post build') {
             steps {
                 junit 'gameoflife-web/target/surefire-reports/*.xml'
                 archiveArtifacts 'gameoflife-web/target/*.war'
