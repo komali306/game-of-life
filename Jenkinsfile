@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'ltecom'}
     parameters {
-        string(name: 'MAVENGOAL', defaultValue: 'cleanpackage', description: 'Enter your maven goal')
+        string(name: 'MAVENGOAL', defaultValue: 'clean package', description: 'Enter your maven goal')
     }
     triggers {
    
@@ -25,6 +25,13 @@ pipeline {
             steps {
                 junit 'gameoflife-web/target/surefire-reports/*.xml'
                 archiveArtifacts 'gameoflife-web/target/*.war'
+                stash name: 'warfile', includes: 'gameoflife-web/target/*.war'
+            }
+        }
+        stage ('copy to other node') {
+            agent { label 'master'}
+            steps {
+                ustash name: 'warfile'
             }
         }
     }    
