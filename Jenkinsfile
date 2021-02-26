@@ -2,7 +2,7 @@ pipeline {
     agent { label 'ltecom'}
     triggers {
      
-        cron('H * * * 1-5')
+        upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
 
 
     }
