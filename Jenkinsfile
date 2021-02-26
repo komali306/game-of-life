@@ -32,6 +32,7 @@ pipeline {
             agent { label 'master'}
             steps {
                 ustash name: 'warfile'
+                sh script: 'echo you can deploy your file using anisible/terraform now'
             }
         }
     }    
