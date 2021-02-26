@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'ltecom'}
     triggers {
-        upstream(upstreamprojects: 'golnightbuild', threshold: hudson.model.Result.SUCCESS)
+        upstream(upstreamProjects: 'golnightbuild', threshold: hudson.model.Result.SUCCESS)
         cron('H * * * 1-5')
 
     }
