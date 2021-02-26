@@ -4,7 +4,7 @@ pipeline {
         string(name: 'MAVENGOAL', defaultValue: 'cleanpackage', description: 'Enter your maven goal')
     }
     triggers {
-        upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
+   
         cron('H * * * 1-5')
     }
     options {
