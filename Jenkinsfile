@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'ltecom'}
     parameters {
-        string(name: 'MAVENGOAL', defaultValue: 'cleanpackage', description: 'Enter your maven goal')
+        string(name: 'MAVENGOAL', defaultValue: 'clean package', description: 'Enter your maven goal')
     }
     triggers {
         upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
