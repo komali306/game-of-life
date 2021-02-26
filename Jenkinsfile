@@ -1,10 +1,11 @@
 pipeline {
     agent { label 'ltecom'}
+    parameters {
+        string(name: 'MAVENGOAL', defaultvalue: 'cleanpackage', description: 'Enter your maven goal')
+    }
     triggers {
         upstream(upstreamProjects: 'gol-1', threshold: hudson.model.Result.SUCCESS)
         cron('H * * * 1-5')
-
-
     }
     stages {
         stage('scm') {
@@ -14,7 +15,7 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh script: 'mvn clean package'
+                sh script: "mvn ${params.MAVENGOAL}"
             }
         }
         stage('postbuild') {
